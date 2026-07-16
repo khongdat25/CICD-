@@ -1,21 +1,17 @@
-#name: CI/CD Pipeline
-
+name: CI/CD Pipeline
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Lay Code
-        # Đã cập nhật lên v4.1.7 (hoặc v4 mới nhất) để chạy hoàn toàn trên Node.js 24, hết bị cảnh báo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4.1.7
 
       - name: 🚀 Day Code Len VPS
-        # Thay vì dùng @master (dễ lỗi khi tác giả cập nhật code mới), nên dùng phiên bản ổn định cụ thể
-        uses: appleboy/scp-action@v0.1.7
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           port: ${{ secrets.VPS_PORT }}
@@ -25,8 +21,7 @@ jobs:
           target: "/home/${{ secrets.VPS_USERNAME }}/sample-project"
 
       - name: 🔄 Restart Server
-        # Sử dụng phiên bản v0.1.10 ổn định thay cho @master
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           port: ${{ secrets.VPS_PORT }}
@@ -35,5 +30,4 @@ jobs:
           script: |
             cd /home/${{ secrets.VPS_USERNAME }}/sample-project
             npm install
-            # Chạy deploy hoặc restart ứng dụng bằng pm2
             pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
