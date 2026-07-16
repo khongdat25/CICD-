@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: 📥 Lay Code
         # Đã cập nhật lên v4.1.7 (hoặc v4 mới nhất) để chạy hoàn toàn trên Node.js 24, hết bị cảnh báo
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v6
 
       - name: 🚀 Day Code Len VPS
         # Thay vì dùng @master (dễ lỗi khi tác giả cập nhật code mới), nên dùng phiên bản ổn định cụ thể
