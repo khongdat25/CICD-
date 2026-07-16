@@ -8,9 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Lay Code
-        uses: actions/checkout@v5
-        # banner
-        
+        uses: actions/checkout@v4
+
       - name: 🚀 Day Code Len VPS
         uses: appleboy/scp-action@master
         with:
@@ -30,4 +29,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/${{ secrets.VPS_USERNAME }}/sample-project
+            npm install
             pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
