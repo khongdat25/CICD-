@@ -29,5 +29,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/${{ secrets.VPS_USERNAME }}/sample-project
-            npm install
             pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
